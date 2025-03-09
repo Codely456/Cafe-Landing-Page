@@ -2,386 +2,455 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Café Elegance | Welcome</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-brand">Café Elegance</div>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#special">Special</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-        <div class="burger">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content" data-aos="fade-up">
-            <h1>Welcome to Café Elegance</h1>
-            <p>Experience the perfect blend of tradition and innovation</p>
-            <a href="#menu" class="cta-button">Explore Menu</a>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 data-aos="fade-up">Our Story</h2>
-            <div class="about-content">
-                <div class="about-text" data-aos="fade-right">
-                    <p>Founded in 2020, Café Elegance brings you the finest coffee experience paired with delectable pastries and a serene atmosphere. Our commitment to quality and service makes us the perfect destination for coffee enthusiasts and food lovers alike.</p>
+    <div class="page-wrapper">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <div class="logo">
+                    <div class="logo-outer"></div>
+                    <div class="logo-inner"></div>
                 </div>
-                <div class="about-image" data-aos="fade-left">
-                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80" alt="Cafe Interior">
-                </div>
+                <span class="logo-text">Café Elegance</span>
             </div>
-        </div>
-    </section>
-
-    <!-- Menu Section -->
-    <section id="menu" class="menu">
-        <div class="container">
-            <h2 data-aos="fade-up">Our Menu</h2>
-            
-            <!-- Menu Categories -->
-            <div class="menu-categories" data-aos="fade-up">
-                <button class="menu-category active" data-category="coffee">Coffee</button>
-                <button class="menu-category" data-category="pastries">Pastries</button>
-                <button class="menu-category" data-category="breakfast">Breakfast</button>
-                <button class="menu-category" data-category="desserts">Desserts</button>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#special">Special</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
             </div>
+        </nav>
 
-            <!-- Menu Lists -->
-            <div class="menu-lists">
-                <!-- Coffee Menu -->
-                <div class="menu-list active" data-category="coffee">
-                    <div class="menu-item" data-aos="fade-up">
-                        <div class="menu-item-content">
-                            <div class="menu-item-image">
-                                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80" alt="Espresso">
-                                <div class="menu-item-overlay"></div>
-                            </div>
-                            <div class="menu-item-details">
-                                <h3>Espresso</h3>
-                                <div class="menu-item-description">
-                                    <p>Rich and bold single shot of pure coffee essence</p>
-                                    <span class="price">$3.50</span>
+        <main class="main-content">
+            <!-- Hero Section -->
+            <section id="home" class="hero">
+                <div class="hero-content" data-aos="fade-up">
+                    <h1 class="glitch-text">Welcome to Café Elegance</h1>
+                    <p class="cyber-text">Experience the perfect blend of tradition and innovation</p>
+                    <a href="#menu" class="cyber-button">
+                        <span>Explore Menu</span>
+                        <div class="button-glow"></div>
+                    </a>
+                </div>
+                <div class="hero-overlay"></div>
+                <video class="hero-video" autoplay muted loop playsinline>
+                    <source src="https://player.vimeo.com/external/492093842.sd.mp4?s=85cc8bac06b4f936c01c31d64dea4bae53ab4b8f&profile_id=165&oauth2_token_id=57447761" type="video/mp4">
+                </video>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="about">
+                <div class="container">
+                    <h2 class="section-title" data-aos="fade-up">About Us</h2>
+                    <div class="about-content">
+                        <div class="about-text" data-aos="fade-right">
+                            <div class="cyber-terminal">
+                                <div class="terminal-header">
+                                    <span class="terminal-title">café_elegance.exe</span>
+                                    <div class="terminal-controls">
+                                        <span class="control"></span>
+                                        <span class="control"></span>
+                                        <span class="control"></span>
+                                    </div>
                                 </div>
-                                <div class="neon-line"></div>
-                            </div>
-                            <div class="menu-item-hover">
-                                <span class="order-now">Order Now</span>
+                                <div class="terminal-body">
+                                    <p class="typing-text">> Initializing Café Elegance core systems...</p>
+                                    <p class="typing-text">> Loading establishment data...</p>
+                                    <p class="typing-text">> Founded: 2020</p>
+                                    <p class="typing-text">> Core Mission: Delivering exceptional coffee experiences through cutting-edge brewing technology and innovative flavor profiles.</p>
+                                    <p class="typing-text">> Status: Fully operational</p>
+                                    <p class="typing-text">> Unique Feature: Fusion of traditional brewing methods with modern technological innovations</p>
+                                    <p class="typing-text">> Customer Satisfaction Index: Optimal</p>
+                                    <p class="cursor">_</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
-                        <div class="menu-item-content">
-                            <div class="menu-item-image">
-                                <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80" alt="Neon Latte">
-                                <div class="menu-item-overlay"></div>
-                            </div>
-                            <div class="menu-item-details">
-                                <h3>Neon Latte</h3>
-                                <div class="menu-item-description">
-                                    <p>Our signature drink with house-made syrup and oat milk</p>
-                                    <span class="price">$5.50</span>
-                                </div>
-                                <div class="neon-line"></div>
-                            </div>
-                            <div class="menu-item-hover">
-                                <span class="order-now">Order Now</span>
-                            </div>
+                        <div class="about-image" data-aos="fade-left">
+                            <img src="images/cafe-interior.jpg" alt="Cafe Interior">
+                            <div class="image-overlay"></div>
                         </div>
                     </div>
+                </div>
+            </section>
 
-                    <div class="menu-item" data-aos="fade-up" data-aos-delay="200">
-                        <div class="menu-item-content">
-                            <div class="menu-item-image">
-                                <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&q=80" alt="Cyber Mocha">
-                                <div class="menu-item-overlay"></div>
-                            </div>
-                            <div class="menu-item-details">
-                                <h3>Cyber Mocha</h3>
-                                <div class="menu-item-description">
-                                    <p>Premium chocolate with double shot espresso and whipped cream</p>
-                                    <span class="price">$6.00</span>
+            <!-- Menu Section -->
+            <section id="menu" class="menu">
+                <div class="container">
+                    <h2 class="section-title" data-aos="fade-up">Our Menu</h2>
+                    
+                    <!-- Menu Categories -->
+                    <div class="menu-categories" data-aos="fade-up">
+                        <button class="menu-category active" data-category="coffee">Coffee</button>
+                        <button class="menu-category" data-category="pastries">Pastries</button>
+                        <button class="menu-category" data-category="breakfast">Breakfast</button>
+                        <button class="menu-category" data-category="desserts">Desserts</button>
+                    </div>
+
+                    <!-- Menu Lists -->
+                    <div class="menu-lists">
+                        <!-- Coffee Menu -->
+                        <div class="menu-list active" data-category="coffee">
+                            <div class="menu-item" data-aos="fade-up">
+                                <div class="menu-item-content">
+                                    <div class="menu-item-image">
+                                        <img src="images/coffee/espresso.jpg" alt="Espresso">
+                                        <div class="menu-item-overlay"></div>
+                                    </div>
+                                    <div class="menu-item-details">
+                                        <h3>Espresso</h3>
+                                        <div class="menu-item-description">
+                                            <p>Rich and bold single shot of pure coffee essence</p>
+                                            <span class="price">$3.50</span>
+                                        </div>
+                                        <div class="neon-line"></div>
+                                    </div>
+                                    <div class="menu-item-hover">
+                                        <span class="order-now">Order Now</span>
+                                    </div>
                                 </div>
-                                <div class="neon-line"></div>
                             </div>
-                            <div class="menu-item-hover">
-                                <span class="order-now">Order Now</span>
+
+                            <div class="menu-item" data-aos="fade-up">
+                                <div class="menu-item-content">
+                                    <div class="menu-item-image">
+                                        <img src="images/coffee/neon-latte.jpg" alt="Neon Latte">
+                                        <div class="menu-item-overlay"></div>
+                                    </div>
+                                    <div class="menu-item-details">
+                                        <h3>Neon Latte</h3>
+                                        <p>Our signature drink with house-made syrup and oat milk</p>
+                                        <span class="price">$5.50</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="menu-item" data-aos="fade-up">
+                                <div class="menu-item-content">
+                                    <div class="menu-item-image">
+                                        <img src="images/coffee/cyber-mocha.jpg" alt="Cyber Mocha">
+                                        <div class="menu-item-overlay"></div>
+                                    </div>
+                                    <div class="menu-item-details">
+                                        <h3>Cyber Mocha</h3>
+                                        <p>Premium chocolate with double shot espresso</p>
+                                        <span class="price">$6.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pastries Menu -->
+                        <div class="menu-list" data-category="pastries">
+                            <div class="menu-item" data-aos="fade-up">
+                                <div class="menu-item-content">
+                                    <div class="menu-item-image">
+                                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80" alt="Croissant">
+                                        <div class="menu-item-overlay"></div>
+                                    </div>
+                                    <div class="menu-item-details">
+                                        <h3>Butter Croissant</h3>
+                                        <p>Classic French butter croissant with flaky layers</p>
+                                        <span class="price">$4.50</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="menu-item" data-aos="fade-up">
+                                <div class="menu-item-content">
+                                    <div class="menu-item-image">
+                                        <img src="https://images.unsplash.com/photo-1586214091171-8c22a4361c46?auto=format&fit=crop&q=80" alt="Danish">
+                                        <div class="menu-item-overlay"></div>
+                                    </div>
+                                    <div class="menu-item-details">
+                                        <h3>Berry Danish</h3>
+                                        <p>Fresh mixed berry compote with cream cheese</p>
+                                        <span class="price">$5.00</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="menu-item" data-aos="fade-up">
+                                <div class="menu-item-content">
+                                    <div class="menu-item-image">
+                                        <img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&q=80" alt="Cinnamon Roll">
+                                        <div class="menu-item-overlay"></div>
+                                    </div>
+                                    <div class="menu-item-details">
+                                        <h3>Cinnamon Roll</h3>
+                                        <p>Warm cinnamon roll with cream cheese frosting</p>
+                                        <span class="price">$5.50</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Breakfast Menu -->
+                        <div class="menu-list" data-category="breakfast">
+                            <div class="menu-item" data-aos="fade-up">
+                                <div class="menu-item-content">
+                                    <div class="menu-item-image">
+                                        <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&q=80" alt="Full Breakfast">
+                                        <div class="menu-item-overlay"></div>
+                                    </div>
+                                    <div class="menu-item-details">
+                                        <h3>Power Breakfast</h3>
+                                        <p>Eggs, bacon, avocado, sourdough toast, roasted tomatoes</p>
+                                        <span class="price">$16.50</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="menu-item" data-aos="fade-up">
+                                <div class="menu-item-content">
+                                    <div class="menu-item-image">
+                                        <img src="https://images.unsplash.com/photo-1590137876181-2a5a7e340308?auto=format&fit=crop&q=80" alt="Acai Bowl">
+                                        <div class="menu-item-overlay"></div>
+                                    </div>
+                                    <div class="menu-item-details">
+                                        <h3>Super Acai Bowl</h3>
+                                        <p>Fresh fruits, granola, honey, chia seeds, coconut flakes</p>
+                                        <span class="price">$14.00</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="menu-item" data-aos="fade-up">
+                                <div class="menu-item-content">
+                                    <div class="menu-item-image">
+                                        <img src="https://images.unsplash.com/photo-1639108094328-2b94a49b1c2e?auto=format&fit=crop&q=80" alt="French Toast">
+                                        <div class="menu-item-overlay"></div>
+                                    </div>
+                                    <div class="menu-item-details">
+                                        <h3>Brioche French Toast</h3>
+                                        <p>With maple syrup, fresh berries, and whipped cream</p>
+                                        <span class="price">$13.50</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Desserts Menu -->
+                        <div class="menu-list" data-category="desserts">
+                            <div class="menu-item" data-aos="fade-up">
+                                <div class="menu-item-content">
+                                    <div class="menu-item-image">
+                                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80" alt="Chocolate Cake">
+                                        <div class="menu-item-overlay"></div>
+                                    </div>
+                                    <div class="menu-item-details">
+                                        <h3>Triple Chocolate Cake</h3>
+                                        <p>Layers of dark, milk, and white chocolate mousse</p>
+                                        <span class="price">$8.50</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="menu-item" data-aos="fade-up">
+                                <div class="menu-item-content">
+                                    <div class="menu-item-image">
+                                        <img src="https://images.unsplash.com/photo-1612201142855-7873bc1661b4?auto=format&fit=crop&q=80" alt="Macarons">
+                                        <div class="menu-item-overlay"></div>
+                                    </div>
+                                    <div class="menu-item-details">
+                                        <h3>Assorted Macarons</h3>
+                                        <p>Set of 6 macarons with seasonal flavors</p>
+                                        <span class="price">$12.00</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="menu-item" data-aos="fade-up">
+                                <div class="menu-item-content">
+                                    <div class="menu-item-image">
+                                        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&q=80" alt="Tiramisu">
+                                        <div class="menu-item-overlay"></div>
+                                    </div>
+                                    <div class="menu-item-details">
+                                        <h3>Classic Tiramisu</h3>
+                                        <p>Coffee-soaked ladyfingers with mascarpone cream</p>
+                                        <span class="price">$7.50</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- Pastries Menu -->
-                <div class="menu-list" data-category="pastries">
-                    <div class="menu-item" data-aos="fade-up">
-                        <div class="menu-item-content">
-                            <div class="menu-item-image">
-                                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80" alt="Neon Croissant">
-                                <div class="menu-item-overlay"></div>
-                            </div>
-                            <div class="menu-item-details">
-                                <h3>Neon Croissant</h3>
-                                <div class="menu-item-description">
-                                    <p>Buttery layers with a hint of vanilla glaze</p>
-                                    <span class="price">$4.50</span>
+            <!-- Special Offers -->
+            <section id="special" class="special">
+                <div class="container">
+                    <h2 class="section-title" data-aos="fade-up">System Upgrades</h2>
+                    <div class="special-grid">
+                        <div class="special-card" data-aos="zoom-in">
+                            <div class="card-content">
+                                <div class="cyber-icon">
+                                    <i class="fas fa-clock"></i>
+                                    <div class="icon-glow"></div>
                                 </div>
-                                <div class="neon-line"></div>
-                            </div>
-                            <div class="menu-item-hover">
-                                <span class="order-now">Order Now</span>
+                                <h3>Happy Hours Protocol</h3>
+                                <div class="cyber-details">
+                                    <p class="offer">System Boost: 50% Resource Optimization</p>
+                                    <p class="time">Running Time: 2PM - 5PM</p>
+                                </div>
+                                <button class="cyber-button">
+                                    <span>Activate Offer</span>
+                                    <div class="button-glow"></div>
+                                </button>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
-                        <div class="menu-item-content">
-                            <div class="menu-item-image">
-                                <img src="https://images.unsplash.com/photo-1505253304499-671c55fb57fe?auto=format&fit=crop&q=80" alt="Digital Danish">
-                                <div class="menu-item-overlay"></div>
-                            </div>
-                            <div class="menu-item-details">
-                                <h3>Digital Danish</h3>
-                                <div class="menu-item-description">
-                                    <p>Fresh berry compote with cream cheese filling</p>
-                                    <span class="price">$5.00</span>
+                        <div class="special-card" data-aos="zoom-in">
+                            <div class="card-content">
+                                <div class="cyber-icon">
+                                    <i class="fas fa-users"></i>
+                                    <div class="icon-glow"></div>
                                 </div>
-                                <div class="neon-line"></div>
+                                <h3>Group Sync Protocol</h3>
+                                <div class="cyber-details">
+                                    <p class="offer">15% Efficiency Boost for Teams</p>
+                                    <p class="time">Minimum 4 Units Required</p>
+                                </div>
                             </div>
-                            <div class="menu-item-hover">
-                                <span class="order-now">Order Now</span>
+                        </div>
+
+                        <div class="special-card" data-aos="zoom-in">
+                            <div class="card-content">
+                                <div class="cyber-icon">
+                                    <i class="fas fa-gift"></i>
+                                    <div class="icon-glow"></div>
+                                </div>
+                                <h3>Loyalty Program v2.0</h3>
+                                <div class="cyber-details">
+                                    <p class="offer">Earn Credits on Every Purchase</p>
+                                    <p class="time">Auto-upgrades Available</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- Breakfast Menu -->
-                <div class="menu-list" data-category="breakfast">
-                    <div class="menu-item" data-aos="fade-up">
-                        <div class="menu-item-content">
-                            <div class="menu-item-image">
-                                <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&q=80" alt="Cyber Breakfast">
-                                <div class="menu-item-overlay"></div>
-                            </div>
-                            <div class="menu-item-details">
-                                <h3>Cyber Breakfast</h3>
-                                <div class="menu-item-description">
-                                    <p>Eggs, bacon, avocado, sourdough toast</p>
-                                    <span class="price">$14.50</span>
+            <!-- Contact Section -->
+            <section id="contact" class="contact">
+                <div class="container">
+                    <h2 class="section-title" data-aos="fade-up">Initialize Contact</h2>
+                    <div class="contact-content">
+                        <div class="contact-info" data-aos="fade-right">
+                            <div class="info-item">
+                                <div class="icon-wrapper">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div class="icon-pulse"></div>
                                 </div>
-                                <div class="neon-line"></div>
-                            </div>
-                            <div class="menu-item-hover">
-                                <span class="order-now">Order Now</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
-                        <div class="menu-item-content">
-                            <div class="menu-item-image">
-                                <img src="https://images.unsplash.com/photo-1546039907-7fa05f864c02?auto=format&fit=crop&q=80" alt="Neon Acai Bowl">
-                                <div class="menu-item-overlay"></div>
-                            </div>
-                            <div class="menu-item-details">
-                                <h3>Neon Acai Bowl</h3>
-                                <div class="menu-item-description">
-                                    <p>Fresh fruits, granola, honey, chia seeds</p>
-                                    <span class="price">$12.00</span>
+                                <div class="info-text">
+                                    <h3>Location</h3>
+                                    <p>123 Cyber Street, Digital City</p>
                                 </div>
-                                <div class="neon-line"></div>
                             </div>
-                            <div class="menu-item-hover">
-                                <span class="order-now">Order Now</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Desserts Menu -->
-                <div class="menu-list" data-category="desserts">
-                    <div class="menu-item" data-aos="fade-up">
-                        <div class="menu-item-content">
-                            <div class="menu-item-image">
-                                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80" alt="Pixel Perfect Cake">
-                                <div class="menu-item-overlay"></div>
-                            </div>
-                            <div class="menu-item-details">
-                                <h3>Pixel Perfect Cake</h3>
-                                <div class="menu-item-description">
-                                    <p>Layers of chocolate and raspberry mousse</p>
-                                    <span class="price">$7.50</span>
+                            <div class="info-item">
+                                <div class="icon-wrapper">
+                                    <i class="fas fa-phone"></i>
+                                    <div class="icon-pulse"></div>
                                 </div>
-                                <div class="neon-line"></div>
-                            </div>
-                            <div class="menu-item-hover">
-                                <span class="order-now">Order Now</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
-                        <div class="menu-item-content">
-                            <div class="menu-item-image">
-                                <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?auto=format&fit=crop&q=80" alt="Matrix Macarons">
-                                <div class="menu-item-overlay"></div>
-                            </div>
-                            <div class="menu-item-details">
-                                <h3>Matrix Macarons</h3>
-                                <div class="menu-item-description">
-                                    <p>Assorted flavors with neon glazing</p>
-                                    <span class="price">$3.50</span>
+                                <div class="info-text">
+                                    <h3>Call Us</h3>
+                                    <p>+1 234 567 8900</p>
                                 </div>
-                                <div class="neon-line"></div>
                             </div>
-                            <div class="menu-item-hover">
-                                <span class="order-now">Order Now</span>
+                            <div class="info-item">
+                                <div class="icon-wrapper">
+                                    <i class="fas fa-envelope"></i>
+                                    <div class="icon-pulse"></div>
+                                </div>
+                                <div class="info-text">
+                                    <h3>Email</h3>
+                                    <p>connect@cafeelegance.com</p>
+                                </div>
                             </div>
                         </div>
+                        <form class="contact-form" data-aos="fade-left">
+                            <input type="text" placeholder="Enter Username" required>
+                            <input type="email" placeholder="Enter Email Address" required>
+                            <textarea placeholder="Type Your Message" required></textarea>
+                            <button type="submit" class="cyber-button">
+                                <span>Initialize Contact</span>
+                                <div class="button-glow"></div>
+                            </button>
+                        </form>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- Special Offers -->
-    <section id="special" class="special">
-        <div class="container">
-            <h2 data-aos="fade-up">Special Offers</h2>
-            <div class="special-grid">
-                <div class="special-card" data-aos="zoom-in">
-                    <div class="card-content">
-                        <h3>Happy Hours</h3>
-                        <p>50% off on all beverages</p>
-                        <span class="time">2 PM - 5 PM</span>
-                    </div>
-                </div>
-                <div class="special-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="card-content">
-                        <h3>Weekend Special</h3>
-                        <p>Buy 1 Get 1 Free</p>
-                        <span class="time">Sat & Sun</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 data-aos="fade-up">Contact Us</h2>
-            <div class="contact-content">
-                <div class="contact-info" data-aos="fade-right">
-                    <div class="info-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <p>123 Coffee Street, Cafe City, CC 12345</p>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-phone"></i>
-                        <p>+1 (555) 123-4567</p>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-envelope"></i>
-                        <p>info@cafeelegance.com</p>
-                    </div>
-                </div>
-                <form class="contact-form" data-aos="fade-left">
-                    <input type="text" placeholder="Name" required>
-                    <input type="email" placeholder="Email" required>
-                    <textarea placeholder="Message" required></textarea>
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Developer Section -->
-    <section class="developer">
-        <div class="container">
-            <div class="developer-card" data-aos="fade-up">
-                <div class="developer-content">
-                    <div class="developer-image">
-                        <div class="image-glitch"></div>
-                        <div class="developer-overlay"></div>
-                    </div>
-                    <div class="developer-info">
-                        <div class="glitch-text">
-                            <h2>Developed By</h2>
-                            <h3>Shoeb</h3>
-                        </div>
-                        <div class="developer-details">
-                            <p class="typewriter-text">A visionary B.Tech CSE student at Amity University, merging creativity with cutting-edge technology. Specializing in modern web development and UI/UX design, Shoeb brings cyberpunk aesthetics to life through innovative digital experiences.</p>
+            <!-- Developer Section -->
+            <section class="developer">
+                <div class="container">
+                    <h2 class="section-title" data-aos="fade-up">Developer Info</h2>
+                    <div class="developer-card" data-aos="zoom-in">
+                        <div class="developer-content">
+                            <h2 class="glitch-text">Shoeb</h2>
+                            <h3 class="typewriter-text">B.Tech CSE Student @ Amity University</h3>
                             <div class="tech-stack">
                                 <span class="tech-badge">HTML5</span>
                                 <span class="tech-badge">CSS3</span>
                                 <span class="tech-badge">JavaScript</span>
-                                <span class="tech-badge">UI/UX</span>
+                                <span class="tech-badge">React</span>
+                                <span class="tech-badge">Node.js</span>
+                                <span class="tech-badge">Python</span>
                             </div>
-                            <div class="developer-stats">
-                                <div class="stat">
-                                    <span class="stat-number">15+</span>
-                                    <span class="stat-label">Projects</span>
-                                </div>
-                                <div class="stat">
-                                    <span class="stat-number">3+</span>
-                                    <span class="stat-label">Years Coding</span>
-                                </div>
-                                <div class="stat">
-                                    <span class="stat-number">99%</span>
-                                    <span class="stat-label">Client Satisfaction</span>
-                                </div>
+                            <div class="social-links">
+                                <a href="#" class="cyber-link"><i class="fab fa-github"></i></a>
+                                <a href="#" class="cyber-link"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="cyber-link"><i class="fab fa-twitter"></i></a>
                             </div>
-                        </div>
-                        <div class="developer-links">
-                            <a href="#" class="dev-link"><i class="fab fa-github"></i></a>
-                            <a href="#" class="dev-link"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="dev-link"><i class="fas fa-globe"></i></a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
+        </main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <h3>Café Elegance</h3>
-                    <p>Your perfect coffee destination</p>
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <h3>Café Elegance</h3>
+                        <p>Elevating Coffee to Digital Art</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
                 </div>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+                <div class="footer-bottom">
+                    <p>&copy; 2024 Café Elegance. All rights reserved.</p>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Café Elegance. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
+    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
 </body>
 </html> 
