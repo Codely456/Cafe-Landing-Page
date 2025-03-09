@@ -1,0 +1,9 @@
+GitHub Repository: https://github.com/Codely456/Cafe-Landing-Page
+
+Live Website: https://codely456.github.io/Cafe-Landing-Page/
+
+Note: If the live website link doesn't work yet, you may need to enable GitHub Pages in your repository settings:
+1. Go to repository Settings
+2. Navigate to "Pages" section
+3. Under "Source", select "main" branch
+4. Click Save 
