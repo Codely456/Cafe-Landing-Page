@@ -6,16 +6,57 @@ AOS.init({
     offset: 100
 });
 
+// Sign In Button and Modal Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const signInBtn = document.querySelector('.sign-in-btn');
+    const signInModal = document.getElementById('signInModal');
+    const modalClose = document.querySelector('.modal-close');
+
+    // Show modal when clicking sign in button
+    if (signInBtn) {
+        signInBtn.addEventListener('click', () => {
+            if (signInModal) {
+                signInModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    }
+
+    // Close modal when clicking close button
+    if (modalClose) {
+        modalClose.addEventListener('click', () => {
+            if (signInModal) {
+                signInModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+    // Close modal when clicking outside
+    if (signInModal) {
+        signInModal.addEventListener('click', (e) => {
+            if (e.target === signInModal) {
+                signInModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+});
+
 // Mobile Navigation
 const burger = document.querySelector('.burger');
 const nav = document.querySelector('.nav-links');
 const navLinks = document.querySelectorAll('.nav-links li');
+const body = document.body;
 
 burger.addEventListener('click', () => {
     // Toggle Navigation
     nav.classList.toggle('active');
+    
+    // Toggle body scroll
+    body.classList.toggle('menu-open');
 
-    // Animate Links
+    // Animate Links with stagger effect
     navLinks.forEach((link, index) => {
         if (link.style.animation) {
             link.style.animation = '';
@@ -27,6 +68,49 @@ burger.addEventListener('click', () => {
     // Burger Animation
     burger.classList.toggle('toggle');
 });
+
+// Close menu when clicking a link
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        if (nav.classList.contains('active')) {
+            nav.classList.remove('active');
+            burger.classList.remove('toggle');
+            body.classList.remove('menu-open');
+            navLinks.forEach(link => {
+                link.style.animation = '';
+            });
+        }
+    });
+});
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (nav.classList.contains('active') && 
+        !nav.contains(e.target) && 
+        !burger.contains(e.target)) {
+        nav.classList.remove('active');
+        burger.classList.remove('toggle');
+        body.classList.remove('menu-open');
+        navLinks.forEach(link => {
+            link.style.animation = '';
+        });
+    }
+});
+
+// Add keyframe animation for nav links
+const style = document.createElement('style');
+style.textContent = `
+@keyframes navLinkFade {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}`;
+document.head.appendChild(style);
 
 // Smooth Scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -267,25 +351,51 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Menu Category Switching
 document.addEventListener('DOMContentLoaded', function() {
-    // Menu category functionality
     const menuCategories = document.querySelectorAll('.menu-category');
     const menuLists = document.querySelectorAll('.menu-list');
 
+    // Set initial state
+    const activeCategory = document.querySelector('.menu-category.active');
+    if (activeCategory) {
+        const category = activeCategory.getAttribute('data-category');
+        const activeList = document.querySelector(`.menu-list[data-category="${category}"]`);
+        if (activeList) {
+            activeList.style.display = 'grid';
+            activeList.style.opacity = '1';
+            activeList.style.transform = 'translateY(0)';
+        }
+    }
+
     menuCategories.forEach(category => {
         category.addEventListener('click', () => {
-            // Remove active class from all categories and lists
+            // Remove active class from all categories
             menuCategories.forEach(cat => cat.classList.remove('active'));
-            menuLists.forEach(list => list.classList.remove('active'));
-
+            
             // Add active class to clicked category
             category.classList.add('active');
 
-            // Show corresponding menu list
+            // Handle menu list display
             const targetCategory = category.getAttribute('data-category');
-            const targetList = document.querySelector(`.menu-list[data-category="${targetCategory}"]`);
-            if (targetList) {
-                targetList.classList.add('active');
-            }
+            menuLists.forEach(list => {
+                if (list.getAttribute('data-category') === targetCategory) {
+                    list.style.display = 'grid';
+                    list.classList.add('active');
+                    // Add fade-in effect
+                    list.style.opacity = '0';
+                    list.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        list.style.opacity = '1';
+                        list.style.transform = 'translateY(0)';
+                    }, 50);
+                } else {
+                    list.classList.remove('active');
+                    list.style.opacity = '0';
+                    list.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        list.style.display = 'none';
+                    }, 300);
+                }
+            });
 
             // Add cyberpunk effect on click
             category.style.transform = 'scale(0.95)';
@@ -295,12 +405,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 category.style.boxShadow = '';
             }, 200);
         });
+
+        // Add hover effect
+        category.addEventListener('mouseover', () => {
+            if (!category.classList.contains('active')) {
+                category.style.transform = 'translateY(-5px)';
+            }
+        });
+
+        category.addEventListener('mouseout', () => {
+            if (!category.classList.contains('active')) {
+                category.style.transform = 'translateY(0)';
+            }
+        });
     });
 
     // Menu item hover effects
-    const allMenuItems = document.querySelectorAll('.menu-item');
-    
-    allMenuItems.forEach(item => {
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach(item => {
         item.addEventListener('mouseenter', () => {
             item.style.transform = 'translateY(-10px)';
             item.style.boxShadow = '0 0 30px var(--neon-pink)';
@@ -1008,4 +1130,219 @@ function addUniqueNavButtonEffects() {
             setTimeout(() => button.style.transform = '', 150);
         });
     });
-} 
+}
+
+// Authentication Functions
+const AUTH_KEY = 'cafe_elegance_auth';
+const USER_KEY = 'cafe_elegance_user';
+
+// Password validation requirements
+const PASSWORD_REQUIREMENTS = {
+    minLength: 8,
+    hasUpperCase: true,
+    hasLowerCase: true,
+    hasNumber: true,
+    hasSpecial: true
+};
+
+// Check if user is logged in
+function checkAuth() {
+    const auth = localStorage.getItem(AUTH_KEY);
+    const user = JSON.parse(localStorage.getItem(USER_KEY));
+    
+    if (auth && user) {
+        showUserMenu(user);
+        hideSignInButton();
+        return true;
+    }
+    
+    hideUserMenu();
+    showSignInButton();
+    return false;
+}
+
+// Show sign in button
+function showSignInButton() {
+    const authButtons = document.querySelector('.auth-buttons');
+    if (authButtons) {
+        authButtons.style.display = 'block';
+    }
+}
+
+// Hide sign in button
+function hideSignInButton() {
+    const authButtons = document.querySelector('.auth-buttons');
+    if (authButtons) {
+        authButtons.style.display = 'none';
+    }
+}
+
+// Show sign in modal
+function showSignInModal() {
+    const modal = document.getElementById('signInModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+// Hide sign in modal
+function hideSignInModal() {
+    const modal = document.getElementById('signInModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Show user menu
+function showUserMenu(user) {
+    const userMenu = document.querySelector('.user-menu');
+    const userAvatar = userMenu.querySelector('.user-avatar');
+    const userName = userMenu.querySelector('.user-name');
+    const userEmail = userMenu.querySelector('.user-email');
+    const orderLink = document.querySelector('.order-link');
+    
+    if (userMenu) {
+        userMenu.style.display = 'block';
+        
+        if (userAvatar) {
+            if (user.isGoogle && user.imageUrl) {
+                userAvatar.innerHTML = `<img src="${user.imageUrl}" alt="${user.name}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+            } else {
+                userAvatar.textContent = user.name.charAt(0).toUpperCase();
+            }
+        }
+        
+        if (userName) userName.textContent = user.name;
+        if (userEmail) userEmail.textContent = user.email;
+    }
+
+    if (orderLink) {
+        orderLink.style.pointerEvents = 'auto';
+        orderLink.style.opacity = '1';
+    }
+}
+
+// Hide user menu
+function hideUserMenu() {
+    const userMenu = document.querySelector('.user-menu');
+    const orderLink = document.querySelector('.order-link');
+    
+    if (userMenu) {
+        userMenu.style.display = 'none';
+    }
+
+    if (orderLink) {
+        orderLink.style.pointerEvents = 'none';
+        orderLink.style.opacity = '0.5';
+    }
+}
+
+// Initialize authentication system
+function initializeAuth() {
+    console.log('Initializing authentication system...');
+    
+    // Load Google API
+    const script = document.createElement('script');
+    script.src = 'https://apis.google.com/js/api:client.js';
+    script.onload = () => {
+        console.log('Google API script loaded');
+        gapi.load('auth2', () => {
+            console.log('Auth2 loaded, initializing...');
+            gapi.auth2.init({
+                client_id: '261022415749-2sjfq02hfitek8o6f93lfhfgk070n1rt.apps.googleusercontent.com',
+                scope: 'profile email',
+                cookie_policy: 'single_host_origin',
+                ux_mode: 'popup',
+                redirect_uri: 'https://codely456.github.io/Cafe-Landing-Page/'
+            }).then(() => {
+                console.log('Google Auth initialized successfully');
+                // Add click handler to Google sign-in button
+                const googleBtn = document.querySelector('.google-sign-in');
+                if (googleBtn) {
+                    googleBtn.addEventListener('click', () => {
+                        console.log('Google sign-in button clicked');
+                        const auth2 = gapi.auth2.getAuthInstance();
+                        auth2.signIn({
+                            prompt: 'select_account'
+                        }).then(
+                            googleUser => {
+                                console.log('Google sign in successful');
+                                const profile = googleUser.getBasicProfile();
+                                const user = {
+                                    name: profile.getName(),
+                                    email: profile.getEmail(),
+                                    id: profile.getId(),
+                                    imageUrl: profile.getImageUrl(),
+                                    isGoogle: true
+                                };
+                                localStorage.setItem(AUTH_KEY, 'true');
+                                localStorage.setItem(USER_KEY, JSON.stringify(user));
+                                showUserMenu(user);
+                                hideSignInButton();
+                                hideSignInModal();
+                                showSuccess('Successfully signed in with Google!');
+                            },
+                            error => {
+                                console.error('Error during Google sign in:', error);
+                                showError('Google sign in failed. Please try again.');
+                            }
+                        );
+                    });
+                    console.log('Google sign-in button handler attached');
+                } else {
+                    console.error('Google sign-in button not found');
+                }
+            }).catch(error => {
+                console.error('Error initializing Google Auth:', error);
+                showError('Failed to initialize Google Sign In');
+            });
+        });
+    };
+    script.onerror = (error) => {
+        console.error('Error loading Google API script:', error);
+        showError('Failed to load Google Sign In');
+    };
+    document.head.appendChild(script);
+    
+    // Check authentication status
+    checkAuth();
+    
+    // Add sign in button click listener
+    const signInBtn = document.querySelector('.sign-in-btn');
+    if (signInBtn) {
+        signInBtn.addEventListener('click', showSignInModal);
+    }
+    
+    // Add form submission listener
+    const signInForm = document.querySelector('.sign-in-form');
+    if (signInForm) {
+        signInForm.addEventListener('submit', handleSignIn);
+    }
+    
+    // Add modal close listener
+    const modalClose = document.querySelector('.modal-close');
+    if (modalClose) {
+        modalClose.addEventListener('click', hideSignInModal);
+    }
+    
+    // Add logout listener
+    const logoutButton = document.querySelector('.logout');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', handleLogout);
+    }
+    
+    // Close modal when clicking outside
+    const modal = document.getElementById('signInModal');
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                hideSignInModal();
+            }
+        });
+    }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeAuth); 

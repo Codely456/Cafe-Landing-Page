@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Café Elegance | Checkout</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Order Page Specific Styles */
+        .order-page {
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 100%);
+            min-height: 100vh;
+        }
+        
+        .checkout-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 992px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .checkout-title {
+            color: #0ff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+            font-family: 'Orbitron', sans-serif;
+            grid-column: 1 / -1;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+        
+        .login-section {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #0ff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .login-prompt {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .login-prompt p {
+            color: #fff;
+            font-size: 0.9rem;
+        }
+        
+        .login-btn {
+            background: transparent;
+            color: #0ff;
+            border: 1px solid #0ff;
+            padding: 8px 15px;
+            border-radius: 3px;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-btn:hover {
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 1px solid #0ff;
+            border-radius: 3px;
+            animation: pulse 1.5s infinite;
+            pointer-events: none;
+            opacity: 0;
+        }
+        
+        .login-btn:hover::before {
+            opacity: 1;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            70% {
+                transform: scale(1.05);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+        
+        .payment-options {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #0ff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            border-radius: 5px;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .payment-title {
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+            padding-bottom: 10px;
+        }
+        
+        .express-checkout {
+            margin-bottom: 30px;
+        }
+        
+        .express-title {
+            color: #0ff;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .express-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(0,255,255,0.5) 0%, rgba(0,255,255,0) 100%);
+            margin-left: 10px;
+        }
+        
+        .express-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        
+        .express-button {
+            background: #1a1a2e;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 5px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .express-button:hover {
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .express-button img {
+            max-width: 100%;
+            max-height: 30px;
+        }
+        
+        .payment-method {
+            margin-bottom: 30px;
+        }
+        
+        .payment-method-title {
+            color: #0ff;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .payment-method-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(0,255,255,0.5) 0%, rgba(0,255,255,0) 100%);
+            margin-left: 10px;
+        }
+        
+        .card-button {
+            background: rgba(10, 10, 30, 0.6);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 5px;
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+        
+        .card-button:hover {
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+        
+        .card-button i {
+            margin-right: 10px;
+            color: #0ff;
+        }
+        
+        .card-icons {
+            display: flex;
+            gap: 10px;
+            margin-left: auto;
+        }
+        
+        .card-icons img {
+            height: 25px;
+        }
+        
+        .installment-section {
+            background: rgba(10, 10, 30, 0.6);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 5px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .installment-section:hover {
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+        
+        .installment-title {
+            color: #0ff;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .installment-details {
+            color: #fff;
+            font-size: 0.9rem;
+        }
+        
+        .installment-details p {
+            margin: 5px 0;
+        }
+        
+        .terms {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+            margin-top: 20px;
+            line-height: 1.5;
+        }
+        
+        .terms a {
+            color: #0ff;
+            text-decoration: none;
+        }
+        
+        .terms a:hover {
+            text-decoration: underline;
+        }
+        
+        .order-summary {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #0ff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            border-radius: 5px;
+            padding: 20px;
+            height: fit-content;
+            backdrop-filter: blur(5px);
+        }
+        
+        .summary-title {
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+            padding-bottom: 10px;
+        }
+        
+        .order-item {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+        }
+        
+        .item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+        
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .item-details {
+            flex: 1;
+            padding-left: 15px;
+        }
+        
+        .item-name {
+            color: #0ff;
+            font-weight: 600;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 5px;
+        }
+        
+        .item-variant {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .item-pickup {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+        }
+        
+        .item-price {
+            color: #fff;
+            font-weight: 600;
+            text-align: right;
+        }
+        
+        .order-totals {
+            margin-top: 20px;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .total-row.final {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 255, 255, 0.3);
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #0ff;
+        }
+        
+        .total-label {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .total-value {
+            color: #fff;
+        }
+        
+        .reward-points {
+            background: rgba(0, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 3px;
+            margin-top: 15px;
+            border-left: 3px solid #0ff;
+        }
+        
+        .reward-points p {
+            color: #fff;
+            font-size: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .cyber-button-large {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1) 0%, rgba(0, 255, 255, 0.2) 100%);
+            border: 1px solid #0ff;
+            color: #0ff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 1px;
+            margin-top: 30px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+        
+        .cyber-button-large::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.2) 0%, rgba(0, 255, 255, 0.4) 100%);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        
+        .cyber-button-large:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .cyber-button-large:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper order-page">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <div class="logo">
+                    <div class="logo-outer"></div>
+                    <div class="logo-inner"></div>
+                </div>
+                <span class="logo-text">Café Elegance</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" style="color: #0ff; font-size: 1.5rem;"><i class="fas fa-arrow-left"></i></a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+
+        <div class="checkout-container">
+            <h1 class="checkout-title">System Checkout Protocol</h1>
+            
+            <div class="payment-section">
+                <div class="login-section">
+                    <div class="login-prompt">
+                        <p>Initialize user authentication for optimal experience</p>
+                        <button class="login-btn">
+                            <i class="fas fa-user-circle"></i> Login
+                        </button>
+                    </div>
+                    <p style="color: rgba(0, 255, 255, 0.7); font-size: 0.8rem; margin-top: 10px;">
+                        Earn 140 Cyber Credits on this transaction
+                    </p>
+                </div>
+                
+                <div class="payment-options">
+                    <h2 class="payment-title">Select Payment Interface</h2>
+                    
+                    <div class="express-checkout">
+                        <div class="express-title">Express Protocol</div>
+                        <div class="express-buttons">
+                            <div class="express-button">
+                                <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal">
+                            </div>
+                            <div class="express-button">
+                                <img src="https://cdn.worldvectorlogo.com/logos/venmo-1.svg" alt="Venmo">
+                            </div>
+                            <div class="express-button">
+                                <img src="https://www.logo.wine/a/logo/Amazon_Pay/Amazon_Pay-Logo.wine.svg" alt="Amazon Pay">
+                            </div>
+                            <div class="express-button">
+                                <img src="https://www.gstatic.com/pay/logos/google_pay_mark_800.svg" alt="Google Pay">
+                            </div>
+                        </div>
+                        <p style="color: rgba(0, 255, 255, 0.6); font-size: 0.8rem; margin-top: 10px;">
+                            Multiple payment protocols supported, including cryptocurrency
+                        </p>
+                    </div>
+                    
+                    <div class="payment-method">
+                        <div class="payment-method-title">Direct Card Interface</div>
+                        <div class="card-button">
+                            <i class="far fa-credit-card"></i>
+                            Credit/Debit card
+                            <div class="card-icons">
+                                <img src="https://www.logo.wine/a/logo/Visa_Inc./Visa_Inc.-Logo.wine.svg" alt="Visa">
+                                <img src="https://www.logo.wine/a/logo/American_Express/American_Express-Logo.wine.svg" alt="Amex">
+                                <img src="https://www.logo.wine/a/logo/Mastercard/Mastercard-Logo.wine.svg" alt="Mastercard">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method">
+                        <div class="payment-method-title">Installment Protocol</div>
+                        <div class="installment-section">
+                            <div class="installment-title">QUANTUM SPLIT</div>
+                            <div class="installment-details">
+                                <p>$11.25 every two system cycles</p>
+                                <p>$44.99 total value</p>
+                                <p>First installment executes today</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="terms">
+                        <p>*System parameters apply. User will not receive Cyber Credits for amount of order paid via previous accrued credits. For complete protocol details, see <a href="#">Rewards Terms and Conditions</a>.</p>
+                        
+                        <p style="margin-top: 10px;">In the US, Quantum Split payment protocol is available in all regions except Hawaii and New Mexico. See <a href="#">payment terms</a>. A higher virtual payment verification may be required for some users.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="order-summary">
+                <h2 class="summary-title">Order Summary</h2>
+                
+                <div class="order-item">
+                    <div class="item-image">
+                        <img src="images/coffee/Espresso.jpg" alt="Cyber Espresso">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">Cyber Espresso</div>
+                        <div class="item-variant">Digital Boost Edition</div>
+                        <div class="item-pickup">Pickup: Get it by Feb. 15</div>
+                    </div>
+                    <div class="item-price">$44.99</div>
+                </div>
+                
+                <div class="order-totals">
+                    <div class="total-row">
+                        <span class="total-label">Subtotal</span>
+                        <span class="total-value">$44.99</span>
+                    </div>
+                    <div class="total-row">
+                        <span class="total-label">Digital Transfer Fee</span>
+                        <span class="total-value">FREE</span>
+                    </div>
+                    <div class="total-row">
+                        <span class="total-label">System Tax</span>
+                        <span class="total-value">Will be calculated at execution</span>
+                    </div>
+                    <div class="total-row final">
+                        <span class="total-label">TOTAL</span>
+                        <span class="total-value">$44.99</span>
+                    </div>
+                </div>
+                
+                <div class="reward-points">
+                    <p>
+                        <span>Café Elegance Cyber Credits earned:</span>
+                        <span>140</span>
+                    </p>
+                </div>
+                
+                <button class="cyber-button-large">
+                    Initialize Transaction
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <h3>Café Elegance</h3>
+                        <p>Elevating Coffee to Digital Art</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2024 Café Elegance. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+</body>
+</html> 

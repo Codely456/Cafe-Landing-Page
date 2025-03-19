@@ -9,8 +9,529 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="google-signin-client_id" content="261022415749-2sjfq02hfitek8o6f93lfhfgk070n1rt.apps.googleusercontent.com">
+    <meta name="google-signin-cookiepolicy" content="single_host_origin">
+    <meta name="google-signin-scope" content="profile email">
+    <style>
+        /* Sign In Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .sign-in-modal {
+            background: rgba(10, 10, 30, 0.95);
+            border: 1px solid #0ff;
+            border-radius: 10px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #fff;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #0ff;
+        }
+
+        .sign-in-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .sign-in-header h2 {
+            color: #0ff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .sign-in-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .google-sign-in {
+            width: 100%;
+            padding: 12px;
+            background: #fff;
+            border: none;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .google-sign-in:hover {
+            background: #f1f1f1;
+            transform: translateY(-2px);
+        }
+
+        .google-sign-in img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .divider span {
+            padding: 0 10px;
+            font-size: 0.9rem;
+        }
+
+        .sign-in-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 5px;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .sign-in-form input:focus {
+            outline: none;
+            border-color: #0ff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+        }
+
+        .sign-in-form input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .sign-in-button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1) 0%, rgba(0, 255, 255, 0.2) 100%);
+            border: 1px solid #0ff;
+            border-radius: 5px;
+            color: #0ff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sign-in-button:hover {
+            background: rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .terms-text {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+        }
+
+        .terms-text a {
+            color: #0ff;
+            text-decoration: none;
+        }
+
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* User Menu Styles */
+        .user-menu {
+            position: relative;
+            display: none;
+        }
+
+        .user-menu.active {
+            display: block;
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #0ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a1a2e;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .user-avatar:hover {
+            border-color: #0ff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 10px;
+            background: rgba(10, 10, 30, 0.95);
+            border: 1px solid #0ff;
+            border-radius: 5px;
+            padding: 10px 0;
+            min-width: 150px;
+            display: none;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+        }
+
+        .user-menu:hover .user-dropdown {
+            display: block;
+        }
+
+        .user-dropdown a {
+            display: block;
+            padding: 8px 15px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .user-dropdown a:hover {
+            background: rgba(0, 255, 255, 0.1);
+            color: #0ff;
+        }
+
+        .user-dropdown .logout {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 5px;
+            padding-top: 5px;
+        }
+
+        /* Password Requirements Styles */
+        .password-requirements {
+            margin-top: 10px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .password-requirements p {
+            color: #0ff;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .password-requirements ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .password-requirements li {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .password-requirements li::before {
+            content: '×';
+            position: absolute;
+            left: 0;
+            color: #ff4757;
+        }
+
+        .password-requirements li.met::before {
+            content: '✓';
+            color: #0ff;
+        }
+
+        .password-requirements li.met {
+            color: #fff;
+        }
+
+        /* Authentication Messages */
+        .auth-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 0.9rem;
+            z-index: 9999;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .auth-message.error {
+            background: rgba(255, 71, 87, 0.9);
+            border: 1px solid #ff4757;
+            box-shadow: 0 0 20px rgba(255, 71, 87, 0.4);
+        }
+
+        .auth-message.success {
+            background: rgba(0, 255, 255, 0.9);
+            border: 1px solid #0ff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Order Link Styles */
+        .order-link {
+            transition: all 0.3s ease;
+        }
+
+        .order-link[style*="pointer-events: none"] {
+            cursor: not-allowed;
+        }
+
+        /* Responsive Breakpoints */
+        @media screen and (max-width: 1200px) {
+            .container {
+                width: 95%;
+                max-width: 1140px;
+            }
+        }
+
+        @media screen and (max-width: 992px) {
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .special-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                height: 100vh;
+                width: 80%;
+                max-width: 400px;
+                background: rgba(10, 10, 30, 0.95);
+                flex-direction: column;
+                padding: 80px 40px;
+                transition: 0.5s ease;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .burger {
+                display: block;
+            }
+            
+            .about-content,
+            .contact-content {
+                flex-direction: column;
+            }
+            
+            .about-text,
+            .about-image,
+            .contact-info,
+            .contact-form {
+                width: 100%;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            .menu-grid,
+            .special-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .sign-in-modal {
+                width: 95%;
+                margin: 10px;
+                padding: 20px;
+            }
+        }
+
+        /* Enhanced User Menu Styles */
+        .user-info {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .user-name {
+            display: block;
+            color: #0ff;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .user-email {
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+        }
+
+        /* Google Sign In Button Enhancement */
+        .google-sign-in {
+            background: #fff;
+            color: #757575;
+            border-radius: 5px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .google-sign-in:hover {
+            background: #f8f8f8;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .google-sign-in img {
+            width: 18px;
+            height: 18px;
+        }
+
+        .google-sign-in span {
+            color: #757575;
+            font-size: 0.9rem;
+        }
+
+        /* Loading States */
+        .loading {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: inherit;
+        }
+
+        .loading::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #fff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
+    <!-- Sign In Modal -->
+    <div class="modal-overlay" id="signInModal">
+        <div class="sign-in-modal">
+            <button class="modal-close">&times;</button>
+            <div class="sign-in-header">
+                <h2>Welcome to Café Elegance</h2>
+                <p>Sign in to continue your cyber-café experience</p>
+            </div>
+            <button class="google-sign-in" id="googleSignIn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google">
+                <span>Sign in with Google</span>
+            </button>
+            <div class="divider">
+                <span>or</span>
+            </div>
+            <form class="sign-in-form">
+                <input type="email" placeholder="Enter your email" required>
+                <input type="password" placeholder="Enter your password" required>
+                <button type="submit" class="sign-in-button">Initialize Login Protocol</button>
+            </form>
+            <p class="terms-text">
+                By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Add Google API Script -->
+    <script src="https://apis.google.com/js/api:client.js"></script>
+
     <div class="page-wrapper">
         <!-- Navigation -->
         <nav class="navbar">
@@ -27,6 +548,23 @@
                 <li><a href="#menu">Menu</a></li>
                 <li><a href="#special">Special</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="order.html" class="order-link" style="color: #0ff; font-weight: 600;">Order</a></li>
+                <li class="auth-buttons">
+                    <button class="sign-in-btn" style="background: linear-gradient(135deg, rgba(0, 255, 255, 0.1) 0%, rgba(0, 255, 255, 0.2) 100%); border: 1px solid #0ff; color: #0ff; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-family: 'Orbitron', sans-serif;">Sign In</button>
+                </li>
+                <li class="user-menu" style="display: none;">
+                    <div class="user-avatar">B</div>
+                    <div class="user-dropdown">
+                        <div class="user-info">
+                            <span class="user-name"></span>
+                            <span class="user-email"></span>
+                        </div>
+                        <a href="#profile">Profile</a>
+                        <a href="#settings">Settings</a>
+                        <a href="#orders">My Orders</a>
+                        <a href="#" class="logout">Logout</a>
+                    </div>
+                </li>
             </ul>
             <div class="burger">
                 <div class="line1"></div>
@@ -80,7 +618,7 @@
                             </div>
                         </div>
                         <div class="about-image" data-aos="fade-left">
-                            <img src="images/cafe-interior.jpg" alt="Cafe Interior">
+                            <img src="images/Cafe interior/Cafe_interior.jpg" alt="Cafe Interior">
                             <div class="image-overlay"></div>
                         </div>
                     </div>
@@ -93,197 +631,117 @@
                     <h2 class="section-title" data-aos="fade-up">Our Menu</h2>
                     
                     <!-- Menu Categories -->
-                    <div class="menu-categories" data-aos="fade-up">
+                    <div class="menu-categories">
                         <button class="menu-category active" data-category="coffee">Coffee</button>
                         <button class="menu-category" data-category="pastries">Pastries</button>
-                        <button class="menu-category" data-category="breakfast">Breakfast</button>
                         <button class="menu-category" data-category="desserts">Desserts</button>
+                        <button class="menu-category" data-category="breakfast">Breakfast</button>
                     </div>
 
                     <!-- Menu Lists -->
                     <div class="menu-lists">
-                        <!-- Coffee Menu -->
+                        <!-- Coffee Section -->
                         <div class="menu-list active" data-category="coffee">
-                            <div class="menu-item" data-aos="fade-up">
-                                <div class="menu-item-content">
-                                    <div class="menu-item-image">
-                                        <img src="images/coffee/espresso.jpg" alt="Espresso">
-                                        <div class="menu-item-overlay"></div>
-                                    </div>
-                                    <div class="menu-item-details">
-                                        <h3>Espresso</h3>
-                                        <div class="menu-item-description">
-                                            <p>Rich and bold single shot of pure coffee essence</p>
-                                            <span class="price">$3.50</span>
-                                        </div>
-                                        <div class="neon-line"></div>
-                                    </div>
-                                    <div class="menu-item-hover">
-                                        <span class="order-now">Order Now</span>
-                                    </div>
+                            <div class="menu-item">
+                                <div class="menu-item-image">
+                                    <img src="images/coffee/Espresso.jpg" alt="Espresso">
+                                </div>
+                                <div class="menu-item-details">
+                                    <h3>Cyber Espresso</h3>
+                                    <p class="menu-item-description">Intense digital boost with perfect crema</p>
+                                    <span class="price">$3.99</span>
                                 </div>
                             </div>
-
-                            <div class="menu-item" data-aos="fade-up">
-                                <div class="menu-item-content">
-                                    <div class="menu-item-image">
-                                        <img src="images/coffee/neon-latte.jpg" alt="Neon Latte">
-                                        <div class="menu-item-overlay"></div>
-                                    </div>
-                                    <div class="menu-item-details">
-                                        <h3>Neon Latte</h3>
-                                        <p>Our signature drink with house-made syrup and oat milk</p>
-                                        <span class="price">$5.50</span>
-                                    </div>
+                            <div class="menu-item">
+                                <div class="menu-item-image">
+                                    <img src="images/coffee/Latte.jpg" alt="Latte">
+                                </div>
+                                <div class="menu-item-details">
+                                    <h3>Neon Latte</h3>
+                                    <p class="menu-item-description">Glowing artisanal coffee with light-up foam</p>
+                                    <span class="price">$5.99</span>
                                 </div>
                             </div>
-
-                            <div class="menu-item" data-aos="fade-up">
-                                <div class="menu-item-content">
-                                    <div class="menu-item-image">
-                                        <img src="images/coffee/cyber-mocha.jpg" alt="Cyber Mocha">
-                                        <div class="menu-item-overlay"></div>
-                                    </div>
-                                    <div class="menu-item-details">
-                                        <h3>Cyber Mocha</h3>
-                                        <p>Premium chocolate with double shot espresso</p>
-                                        <span class="price">$6.00</span>
-                                    </div>
+                            <div class="menu-item">
+                                <div class="menu-item-image">
+                                    <img src="images/coffee/iced-mocha.jpg" alt="Iced Mocha">
+                                </div>
+                                <div class="menu-item-details">
+                                    <h3>Cyber Mocha</h3>
+                                    <p class="menu-item-description">Digital chocolate fusion with plasma cream</p>
+                                    <span class="price">$6.99</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Pastries Menu -->
+                        <!-- Pastries Section -->
                         <div class="menu-list" data-category="pastries">
-                            <div class="menu-item" data-aos="fade-up">
-                                <div class="menu-item-content">
-                                    <div class="menu-item-image">
-                                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80" alt="Croissant">
-                                        <div class="menu-item-overlay"></div>
-                                    </div>
-                                    <div class="menu-item-details">
-                                        <h3>Butter Croissant</h3>
-                                        <p>Classic French butter croissant with flaky layers</p>
-                                        <span class="price">$4.50</span>
-                                    </div>
+                            <div class="menu-item">
+                                <div class="menu-item-image">
+                                    <img src="images/pastries/croissant.jpg" alt="Croissant">
+                                </div>
+                                <div class="menu-item-details">
+                                    <h3>Neon Croissant</h3>
+                                    <p>Glowing butter layers with digital glaze</p>
+                                    <span class="price">$4.99</span>
                                 </div>
                             </div>
-
-                            <div class="menu-item" data-aos="fade-up">
-                                <div class="menu-item-content">
-                                    <div class="menu-item-image">
-                                        <img src="https://images.unsplash.com/photo-1586214091171-8c22a4361c46?auto=format&fit=crop&q=80" alt="Danish">
-                                        <div class="menu-item-overlay"></div>
-                                    </div>
-                                    <div class="menu-item-details">
-                                        <h3>Berry Danish</h3>
-                                        <p>Fresh mixed berry compote with cream cheese</p>
-                                        <span class="price">$5.00</span>
-                                    </div>
+                            <div class="menu-item">
+                                <div class="menu-item-image">
+                                    <img src="images/pastries/danish.jpg" alt="Danish">
                                 </div>
-                            </div>
-
-                            <div class="menu-item" data-aos="fade-up">
-                                <div class="menu-item-content">
-                                    <div class="menu-item-image">
-                                        <img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&q=80" alt="Cinnamon Roll">
-                                        <div class="menu-item-overlay"></div>
-                                    </div>
-                                    <div class="menu-item-details">
-                                        <h3>Cinnamon Roll</h3>
-                                        <p>Warm cinnamon roll with cream cheese frosting</p>
-                                        <span class="price">$5.50</span>
-                                    </div>
+                                <div class="menu-item-details">
+                                    <h3>Matrix Muffin</h3>
+                                    <p>Binary blueberry burst with quantum crumble</p>
+                                    <span class="price">$4.50</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Breakfast Menu -->
-                        <div class="menu-list" data-category="breakfast">
-                            <div class="menu-item" data-aos="fade-up">
-                                <div class="menu-item-content">
-                                    <div class="menu-item-image">
-                                        <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&q=80" alt="Full Breakfast">
-                                        <div class="menu-item-overlay"></div>
-                                    </div>
-                                    <div class="menu-item-details">
-                                        <h3>Power Breakfast</h3>
-                                        <p>Eggs, bacon, avocado, sourdough toast, roasted tomatoes</p>
-                                        <span class="price">$16.50</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="menu-item" data-aos="fade-up">
-                                <div class="menu-item-content">
-                                    <div class="menu-item-image">
-                                        <img src="https://images.unsplash.com/photo-1590137876181-2a5a7e340308?auto=format&fit=crop&q=80" alt="Acai Bowl">
-                                        <div class="menu-item-overlay"></div>
-                                    </div>
-                                    <div class="menu-item-details">
-                                        <h3>Super Acai Bowl</h3>
-                                        <p>Fresh fruits, granola, honey, chia seeds, coconut flakes</p>
-                                        <span class="price">$14.00</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="menu-item" data-aos="fade-up">
-                                <div class="menu-item-content">
-                                    <div class="menu-item-image">
-                                        <img src="https://images.unsplash.com/photo-1639108094328-2b94a49b1c2e?auto=format&fit=crop&q=80" alt="French Toast">
-                                        <div class="menu-item-overlay"></div>
-                                    </div>
-                                    <div class="menu-item-details">
-                                        <h3>Brioche French Toast</h3>
-                                        <p>With maple syrup, fresh berries, and whipped cream</p>
-                                        <span class="price">$13.50</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Desserts Menu -->
+                        <!-- Desserts Section -->
                         <div class="menu-list" data-category="desserts">
-                            <div class="menu-item" data-aos="fade-up">
-                                <div class="menu-item-content">
-                                    <div class="menu-item-image">
-                                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80" alt="Chocolate Cake">
-                                        <div class="menu-item-overlay"></div>
-                                    </div>
-                                    <div class="menu-item-details">
-                                        <h3>Triple Chocolate Cake</h3>
-                                        <p>Layers of dark, milk, and white chocolate mousse</p>
-                                        <span class="price">$8.50</span>
-                                    </div>
+                            <div class="menu-item">
+                                <div class="menu-item-image">
+                                    <img src="images/desserts/chocolate-cake.jpg" alt="Chocolate Cake">
+                                </div>
+                                <div class="menu-item-details">
+                                    <h3>Cyber Cake</h3>
+                                    <p>Digital chocolate layers with neon frosting</p>
+                                    <span class="price">$7.99</span>
                                 </div>
                             </div>
-
-                            <div class="menu-item" data-aos="fade-up">
-                                <div class="menu-item-content">
-                                    <div class="menu-item-image">
-                                        <img src="https://images.unsplash.com/photo-1612201142855-7873bc1661b4?auto=format&fit=crop&q=80" alt="Macarons">
-                                        <div class="menu-item-overlay"></div>
-                                    </div>
-                                    <div class="menu-item-details">
-                                        <h3>Assorted Macarons</h3>
-                                        <p>Set of 6 macarons with seasonal flavors</p>
-                                        <span class="price">$12.00</span>
-                                    </div>
+                            <div class="menu-item">
+                                <div class="menu-item-image">
+                                    <img src="images/desserts/macarons.jpg" alt="Macarons">
+                                </div>
+                                <div class="menu-item-details">
+                                    <h3>Pixel Pie</h3>
+                                    <p>Holographic crust with quantum filling</p>
+                                    <span class="price">$6.99</span>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="menu-item" data-aos="fade-up">
-                                <div class="menu-item-content">
-                                    <div class="menu-item-image">
-                                        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&q=80" alt="Tiramisu">
-                                        <div class="menu-item-overlay"></div>
-                                    </div>
-                                    <div class="menu-item-details">
-                                        <h3>Classic Tiramisu</h3>
-                                        <p>Coffee-soaked ladyfingers with mascarpone cream</p>
-                                        <span class="price">$7.50</span>
-                                    </div>
+                        <!-- Breakfast Section -->
+                        <div class="menu-list" data-category="breakfast">
+                            <div class="menu-item">
+                                <div class="menu-item-image">
+                                    <img src="images/breakfast/acai-bowl.jpg" alt="Acai Bowl">
+                                </div>
+                                <div class="menu-item-details">
+                                    <h3>Acai Bowl</h3>
+                                    <p>Fresh acai blend topped with granola, fruits and honey</p>
+                                    <span class="price">$8.99</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-image">
+                                    <img src="images/breakfast/full-breakfast.jpg" alt="Full Breakfast">
+                                </div>
+                                <div class="menu-item-details">
+                                    <h3>Full Breakfast</h3>
+                                    <p>Complete breakfast with eggs, bacon, toast and coffee</p>
+                                    <span class="price">$12.99</span>
                                 </div>
                             </div>
                         </div>
@@ -453,4 +911,4 @@
         });
     </script>
 </body>
-</html> 
+</html>
