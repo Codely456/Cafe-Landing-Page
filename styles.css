@@ -83,43 +83,22 @@ section {
 .navbar {
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     width: 100%;
     padding: 20px 40px;
     background: rgba(5, 5, 5, 0.95);
     backdrop-filter: blur(10px);
-    z-index: 0;
+    z-index: 1000;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid rgba(255, 45, 149, 0.2);
-    transform: translateX(0);
 }
 
-.g_id_signin {
-    position: fixed;
-    top: 20px;
-    right: 40px;
-    z-index: 0;
-}
-
-  z-index: 101;
-
-    position: relative;
-    display: flex !important;
+.nav-right {
+    display: flex;
     align-items: center;
-
-    margin-left: auto;
-    margin-right: 20px;
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: scale(0.8);
-}
-
-.g_id_signin > div {
-    position: relative !important;
-    display: block !important;
-    margin: 0 !important;
+    gap: 20px;
 }
 
 /* Hero Section Fixes */
@@ -327,11 +306,52 @@ section {
     }
 
     .navbar {
-        padding: 15px;
+        padding: 15px 20px;
+    }
+
+    .nav-right {
+        gap: 10px;
+    }
+
+    .nav-links {
+        position: fixed;
+        right: -100%;
+        top: 0;
+        height: 100vh;
+        width: 80%;
+        max-width: 400px;
+        background: rgba(10, 10, 30, 0.95);
+        flex-direction: column;
+        padding: 80px 40px;
+        transition: 0.5s ease;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .user-menu {
+        margin-right: 10px;
     }
 
     .hero-content {
         padding: 20px 15px;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .burger {
+        display: none;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .user-menu {
+        margin-left: 20px;
     }
 }
 
@@ -411,6 +431,7 @@ h2::after {
     font-size: 1.8rem;
     font-weight: 700;
     background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 0 0 10px rgba(255, 45, 149, 0.5);
@@ -437,6 +458,7 @@ h2::after {
 .nav-brand:hover .logo-text {
     background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue), var(--neon-purple));
     background-size: 200% auto;
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gradientFlow 2s linear infinite;
@@ -1384,11 +1406,11 @@ p {
 
 /* Headings */
 h1, h2, h3, h4, h5, h6 {
-    background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
-    -webkit-background-clip: text;
+    background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
     background-clip: text;
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 15px var(--neon-pink);
+    text-shadow: 0 0 10px rgba(255, 45, 149, 0.5);
     position: relative;
 }
 
@@ -1890,4 +1912,61 @@ body {
     .burger {
         padding: 10px;
     }
-}    
+}
+
+/* User Menu Styles */
+.user-menu {
+    position: relative;
+}
+
+.user-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #0ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1a1a2e;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.user-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 10px;
+    background: rgba(10, 10, 30, 0.95);
+    border: 1px solid #0ff;
+    border-radius: 5px;
+    padding: 10px 0;
+    min-width: 200px;
+    display: none;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+}
+
+.user-menu:hover .user-dropdown {
+    display: block;
+}
+
+/* Sign In Button Styles */
+.sign-in-btn {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.1) 0%, rgba(0, 255, 255, 0.2) 100%);
+    border: 1px solid #0ff;
+    color: #0ff;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.sign-in-btn:hover {
+    background: rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+/* End of file */    
